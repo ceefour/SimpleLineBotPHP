@@ -23,6 +23,7 @@ Bila di-chat oleh Nurul:
 
 Bila di-chat oleh Aryo:
 
+     {"events":[{"type":"message","replyToken":"955e401f1...","source":{"userId":"U41000a9fc727ed43bf296290c4468faa","type":"user"},"timestamp":1488807163231,"message":{"type":"text","id":"5742378680760","text":"ping"}}]}
 
 ### Perintah
 
@@ -30,7 +31,7 @@ Bila di-chat oleh Aryo:
 
 Mengirim pesan custom ke para admin. Perintah ini digunakan untuk uji coba pengiriman pesan dari server ke akun LINE para admin.
 
-    http://labinv.mybluemix.net/pushadmin?message=coba+push
+    http://labinv.mybluemix.net/pushadmin?message=Anda+berada+di+Lab.+Kendali.
 
 ## Android App
 

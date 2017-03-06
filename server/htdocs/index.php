@@ -5,8 +5,9 @@ require __DIR__ . '/../lib/vendor/autoload.php';
 use \LINE\LINEBot\SignatureValidator as SignatureValidator;
 
 $adminIds = [
-	'hendy' => 'U11d4438ecbcd135f2f85c7faf4cb7a5d',
-	'nurul' => 'U651ad6a7b141fb5517e3e2f0ae2deae9'
+	'ceefour' => 'U11d4438ecbcd135f2f85c7faf4cb7a5d',
+	'shaqiinamachz' => 'U651ad6a7b141fb5517e3e2f0ae2deae9',
+	'simkuringaryo' => 'U41000a9fc727ed43bf296290c4468faa'
 ];
 
 // load config
@@ -95,8 +96,11 @@ $app->get('/pushadmin', function($request, $response, $args) { // ?message={mess
 	$bot = new \LINE\LINEBot($httpClient, ['channelSecret' => $_ENV['CHANNEL_SECRET']]);
 
 	$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($message);
-	$result = $bot->pushMessage($adminIds['hendy'], $textMessageBuilder);
+	$result1 = $bot->pushMessage($adminIds['ceefour'], $textMessageBuilder);
+	$result2 = $bot->pushMessage($adminIds['shaqiinamachz'], $textMessageBuilder);
+	$result3 = $bot->pushMessage($adminIds['simkuringaryo'], $textMessageBuilder);
 
+	$result = $result1 ."\n". $result2 ."\n". $result3;
 	return $result->getHTTPStatus() . ' ' . $result->getRawBody();
 });
 

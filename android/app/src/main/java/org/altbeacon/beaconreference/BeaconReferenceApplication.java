@@ -11,10 +11,13 @@ import android.util.Log;
 
 import org.altbeacon.beacon.BeaconManager;
 import org.altbeacon.beacon.BeaconParser;
+import org.altbeacon.beacon.Identifier;
 import org.altbeacon.beacon.Region;
 import org.altbeacon.beacon.powersave.BackgroundPowerSaver;
 import org.altbeacon.beacon.startup.RegionBootstrap;
 import org.altbeacon.beacon.startup.BootstrapNotifier;
+
+import java.util.Arrays;
 
 /**
  * Created by dyoung on 12/13/13.
@@ -49,9 +52,13 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
 
         Log.d(TAG, "setting up background monitoring for beacons and power saving");
         // wake up the app when a beacon is seen
-        Region region = new Region("backgroundRegion",
+        Region backgroundRegion = new Region("backgroundRegion",
                 null, null, null);
-        regionBootstrap = new RegionBootstrap(this, region);
+        Region cubeaconRegion = new Region("cubeaconRegion",
+                Identifier.parse(LabInventory.UUID_CUBEACON), null, null);
+        Region blueRegion = new Region("blueRegion",
+                Identifier.parse(LabInventory.UUID_BLUE), null, null);
+        regionBootstrap = new RegionBootstrap(this, Arrays.asList(backgroundRegion, cubeaconRegion, blueRegion));
 
         // simply constructing this class and holding a reference to it in your custom Application
         // class will automatically cause the BeaconLibrary to save battery whenever the application
@@ -67,7 +74,7 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
     public void didEnterRegion(Region region) {
         // In this example, this class sends a notification to the user whenever a Beacon
         // matching a Region (defined above) are first seen.
-        Log.d(TAG, "did enter region.");
+        Log.d(TAG, "did enter region: " + region);
         if (!haveDetectedBeaconsSinceBoot) {
             Log.d(TAG, "auto launching MonitoringActivity");
 
@@ -84,12 +91,12 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
             if (monitoringActivity != null) {
                 // If the Monitoring Activity is visible, we log info about the beacons we have
                 // seen on its display
-                monitoringActivity.logToDisplay("I see a beacon again" );
+                monitoringActivity.logToDisplay("I see a beacon: " + region.getUniqueId());
             } else {
                 // If we have already seen beacons before, but the monitoring activity is not in
                 // the foreground, we send a notification to the user on subsequent detections.
                 Log.d(TAG, "Sending notification.");
-                sendNotification();
+                sendNotification(region);
             }
         }
 
@@ -99,7 +106,7 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
     @Override
     public void didExitRegion(Region region) {
         if (monitoringActivity != null) {
-            monitoringActivity.logToDisplay("I no longer see a beacon.");
+            monitoringActivity.logToDisplay("I no longer see a beacon for " + region.getUniqueId());
         }
     }
 
@@ -110,11 +117,11 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
         }
     }
 
-    private void sendNotification() {
+    private void sendNotification(Region region) {
         NotificationCompat.Builder builder =
                 new NotificationCompat.Builder(this)
                         .setContentTitle("Beacon Reference Application")
-                        .setContentText("A beacon is nearby.")
+                        .setContentText("A beacon is nearby: " + region.getUniqueId())
                         .setSmallIcon(R.drawable.ic_launcher);
 
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
