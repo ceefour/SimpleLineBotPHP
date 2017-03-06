@@ -21,6 +21,9 @@ Bila di-chat oleh Nurul:
 
     {"events":[{"type":"message","replyToken":"b26b9bc816d6...","source":{"userId":"U651ad6a7b141fb5517e3e2f0ae2deae9","type":"user"},"timestamp":1488796362960,"message":{"type":"text","id":"5741376043806","text":"Nurul"}}]}
 
+Bila di-chat oleh Aryo:
+
+
 ### Perintah
 
 **/pushadmin**
