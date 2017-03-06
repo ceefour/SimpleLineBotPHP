@@ -100,8 +100,10 @@ $app->get('/pushadmin', function($request, $response, $args) { // ?message={mess
 	$result2 = $bot->pushMessage($adminIds['shaqiinamachz'], $textMessageBuilder);
 	$result3 = $bot->pushMessage($adminIds['simkuringaryo'], $textMessageBuilder);
 
-	$result = $result1 ."\n". $result2 ."\n". $result3;
-	return $result->getHTTPStatus() . ' ' . $result->getRawBody();
+	$resultStr = $result1->getHTTPStatus() . ' ' . $result1->getRawBody() . "\n" .
+		$result2->getHTTPStatus() . ' ' . $result2->getRawBody() . "\n" .
+		$result3->getHTTPStatus() . ' ' . $result3->getRawBody();
+	return $resultStr;
 });
 
 /* JUST RUN IT */
