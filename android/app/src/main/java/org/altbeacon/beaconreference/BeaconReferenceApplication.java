@@ -95,7 +95,7 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
             } else {
                 // If we have already seen beacons before, but the monitoring activity is not in
                 // the foreground, we send a notification to the user on subsequent detections.
-                Log.d(TAG, "Sending notification.");
+                Log.d(TAG, "Sending notification: " + region.getUniqueId());
                 sendNotification(region);
             }
         }
