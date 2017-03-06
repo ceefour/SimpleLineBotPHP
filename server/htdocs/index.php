@@ -4,13 +4,18 @@ require __DIR__ . '/../lib/vendor/autoload.php';
 
 use \LINE\LINEBot\SignatureValidator as SignatureValidator;
 
+$adminIds = [
+	'hendy' => 'U11d4438ecbcd135f2f85c7faf4cb7a5d',
+	'nurul' => 'U651ad6a7b141fb5517e3e2f0ae2deae9'
+];
+
 // load config
 $dotenv = new Dotenv\Dotenv(__DIR__);
 $dotenv->load();
 
 // initiate app
 $configs =  [
-	'settings' => ['displayErrorDetails' => true],
+	'settings' => ['displayErrorDetails' => true]
 ];
 $app = new Slim\App($configs);
 
@@ -27,6 +32,7 @@ $app->post('/', function ($request, $response)
 
 	// log body and signature
 	file_put_contents('php://stderr', 'Body: '.$body);
+	error_log('Body: '.$body);
 
 	// is LINE_SIGNATURE exists in request header?
 	if (empty($signature)){
@@ -52,6 +58,9 @@ $app->post('/', function ($request, $response)
 				// send same message as reply to user
 				$result = $bot->replyText($event['replyToken'], $event['message']['text']);
 
+				// file_put_contents('php://stderr', 'Received LINE Event: ' . print_r($event, true));
+				// error_log('Out Received LINE Event: ' . print_r($event, true));
+
 				// or we can use pushMessage() instead to send reply message
 				// $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($event['message']['text']);
 				// $result = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
@@ -73,6 +82,23 @@ $app->post('/', function ($request, $response)
 
 // 	return $result->getHTTPStatus() . ' ' . $result->getRawBody();
 // });
+
+$app->get('/pushadmin', function($request, $response, $args) { // ?message={message}
+	global $adminIds;
+
+	$message = $request->getQueryParam('message');
+	if (empty($message)) {
+		return $response->withStatus(400, 'message query param not set');
+	}
+
+	$httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient($_ENV['CHANNEL_ACCESS_TOKEN']);
+	$bot = new \LINE\LINEBot($httpClient, ['channelSecret' => $_ENV['CHANNEL_SECRET']]);
+
+	$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($message);
+	$result = $bot->pushMessage($adminIds['hendy'], $textMessageBuilder);
+
+	return $result->getHTTPStatus() . ' ' . $result->getRawBody();
+});
 
 /* JUST RUN IT */
 $app->run();
