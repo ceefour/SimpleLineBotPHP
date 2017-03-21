@@ -83,7 +83,7 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
     public void didEnterRegion(Region region) {
         // In this example, this class sends a notification to the user whenever a Beacon
         // matching a Region (defined above) are first seen.
-        Log.d(TAG, "did enter region: " + region);
+        Log.i(TAG, "did enter region: " + region);
 
         String username = "ceefour";
         // Instantiate the RequestQueue.
@@ -137,6 +137,7 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
             if (monitoringActivity != null) {
                 // If the Monitoring Activity is visible, we log info about the beacons we have
                 // seen on its display
+                Log.i(TAG, "I see a beacon: " + region.getUniqueId());
                 monitoringActivity.logToDisplay("I see a beacon: " + region.getUniqueId());
             } else {
                 // If we have already seen beacons before, but the monitoring activity is not in
@@ -151,6 +152,7 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
 
     @Override
     public void didExitRegion(Region region) {
+        Log.i(TAG, "I no longer see a beacon for " + region.getUniqueId());
         if (monitoringActivity != null) {
             monitoringActivity.logToDisplay("I no longer see a beacon for " + region.getUniqueId());
         }
@@ -158,6 +160,7 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
 
     @Override
     public void didDetermineStateForRegion(int state, Region region) {
+        Log.i(TAG, "I have just switched from seeing/not seeing beacons: " + state);
         if (monitoringActivity != null) {
             monitoringActivity.logToDisplay("I have just switched from seeing/not seeing beacons: " + state);
         }

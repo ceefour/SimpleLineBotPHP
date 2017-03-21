@@ -17,6 +17,7 @@ $beacons = [
 	],
 	'fda50693-a4e2-4fb1-afcf-c6eb07647825' => [
 		'name' => 'Lab. Robotika',
+		'description' => 'Laboratorium Robotika memberikan fasilitas bagi mahasiswa untuk melakukan penelitian di bidang robotika, dengan alat-alat terbaru.',
 		'items' => ['NAO', 'microphone', 'sound card', 'keyboard', 'mouse', 'flash drive'],
 	]
 ];
