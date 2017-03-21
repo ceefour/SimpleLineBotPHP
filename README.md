@@ -1,5 +1,7 @@
 # Aplikasi iBeacon-LINE untuk Inventaris Laboratorium
 
+Video: https://www.youtube.com/watch?v=xVPFf-wosdY
+
 ## Server
 
 Server berfungsi untuk mengelola komunikasi dengan user menggunakan LINE Bot.
@@ -32,6 +34,13 @@ Bila di-chat oleh Aryo:
 Mengirim pesan custom ke para admin. Perintah ini digunakan untuk uji coba pengiriman pesan dari server ke akun LINE para admin.
 
     http://labinv.mybluemix.net/pushadmin?message=Anda+berada+di+Lab.+Kendali.
+
+**/pushdevice**
+
+Dipanggil bila beacon berada dalam range.
+
+    http://labinv.mybluemix.net/pushdevice?username=ceefour&uuid=cb10023f-a318-3394-4199-a8730c7c1aec
+
 
 ## Android App
 

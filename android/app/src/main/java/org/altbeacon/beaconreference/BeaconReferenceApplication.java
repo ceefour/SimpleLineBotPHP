@@ -9,6 +9,13 @@ import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
 import org.altbeacon.beacon.BeaconManager;
 import org.altbeacon.beacon.BeaconParser;
 import org.altbeacon.beacon.Identifier;
@@ -58,7 +65,9 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
                 Identifier.parse(LabInventory.UUID_CUBEACON), null, null);
         Region blueRegion = new Region("blueRegion",
                 Identifier.parse(LabInventory.UUID_BLUE), null, null);
-        regionBootstrap = new RegionBootstrap(this, Arrays.asList(backgroundRegion, cubeaconRegion, blueRegion));
+        regionBootstrap = new RegionBootstrap(this, Arrays.asList(
+//                backgroundRegion,
+                cubeaconRegion, blueRegion));
 
         // simply constructing this class and holding a reference to it in your custom Application
         // class will automatically cause the BeaconLibrary to save battery whenever the application
@@ -75,6 +84,34 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
         // In this example, this class sends a notification to the user whenever a Beacon
         // matching a Region (defined above) are first seen.
         Log.d(TAG, "did enter region: " + region);
+
+        String username = "ceefour";
+        // Instantiate the RequestQueue.
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url ="http://labinv.mybluemix.net/pushdevice?username=" + username
+                + "&uuid=" + region.getUniqueId();
+        Log.i(TAG, "HTTP GET... " + url);
+
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Display the first 500 characters of the response string.
+                        //mTextView.setText("Response is: "+ response.substring(0,500));
+                        Log.i(TAG, "Response is: "+ response.substring(0,500));
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        //mTextView.setText("That didn't work!");
+                        Log.e(TAG, "That didn't work!: "+ error);
+                    }
+        });
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
+
+
         if (!haveDetectedBeaconsSinceBoot) {
             Log.d(TAG, "auto launching MonitoringActivity");
 
