@@ -7,21 +7,19 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="17dp"
-        android:text="Monitoring Events:" />
+        android:text="Monitoring Events:"
+        android:layout_above="@+id/monitoringText"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:id="@+id/monitoringText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView1"
-        android:layout_marginTop="36dp"
         android:ems="10"
         android:gravity="left|top"
-        android:inputType="textMultiLine" >
+        android:inputType="textMultiLine"
+        android:layout_above="@+id/Button01"
+        android:layout_alignParentStart="true">
         <requestFocus />
     </EditText>
 
@@ -29,9 +27,9 @@
         android:id="@+id/Button01"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:onClick="onRangingClicked"
-        android:layout_below="@+id/monitoringText"
-        android:text="Start Ranging" />
+        android:text="Start Ranging"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

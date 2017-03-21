@@ -89,8 +89,11 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this);
         String url ="http://labinv.mybluemix.net/pushdevice?username=" + username
-                + "&uuid=" + region.getUniqueId();
+                + "&uuid=" + region.getId1().toString();
         Log.i(TAG, "HTTP GET... " + url);
+        if (monitoringActivity != null) {
+            monitoringActivity.logToDisplay("HTTP GET... " + url);
+        }
 
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -99,18 +102,24 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
                     public void onResponse(String response) {
                         // Display the first 500 characters of the response string.
                         //mTextView.setText("Response is: "+ response.substring(0,500));
-                        Log.i(TAG, "Response is: "+ response.substring(0,500));
+                        String responseStr = response.length() > 500 ? response.substring(0, 500) : response;
+                        Log.i(TAG, "Response is: "+ responseStr);
+                        if (monitoringActivity != null) {
+                            monitoringActivity.logToDisplay("Response is: " + responseStr);
+                        }
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         //mTextView.setText("That didn't work!");
                         Log.e(TAG, "That didn't work!: "+ error);
+                        if (monitoringActivity != null) {
+                            monitoringActivity.logToDisplay("That didn't work!: " + error);
+                        }
                     }
         });
         // Add the request to the RequestQueue.
         queue.add(stringRequest);
-
 
         if (!haveDetectedBeaconsSinceBoot) {
             Log.d(TAG, "auto launching MonitoringActivity");
