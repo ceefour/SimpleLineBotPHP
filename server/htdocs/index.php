@@ -7,7 +7,8 @@ use \LINE\LINEBot\SignatureValidator as SignatureValidator;
 $adminIds = [
 	'ceefour' => 'U11d4438ecbcd135f2f85c7faf4cb7a5d',
 	'shaqiinamachz' => 'U651ad6a7b141fb5517e3e2f0ae2deae9',
-	'simkuringaryo' => 'U41000a9fc727ed43bf296290c4468faa'
+	'simkuringaryo' => 'U41000a9fc727ed43bf296290c4468faa',
+	'habibakbaraziiz' => 'U8e08f9e2b3430c8c8098a306a4670123'
 ];
 $beacons = [
 	'cb10023f-a318-3394-4199-a8730c7c1aec' => [
@@ -78,7 +79,11 @@ $app->post('/', function ($request, $response)
 			{
 				$text = $event['message']['text'];
 
-				if ($text == 'help') {
+				if ($text == 'id') {
+					$replyMessage = "ID Anda: " . $event['source']['userId'];
+					$result = $bot->replyText($event['replyToken'], $replyMessage);
+					return $result->getHTTPStatus() . ' ' . $result->getRawBody();
+				} else if ($text == 'help') {
 					$replyMessage = "Info Inventaris Lab\n\n" .
 						"Saat memasuki area lab, Anda akan otomatis mendapatkan informasi tentang lab. tersebut.\n" .
 						"Untuk meminjam barang, ketik: pinjam <barang>\n" .

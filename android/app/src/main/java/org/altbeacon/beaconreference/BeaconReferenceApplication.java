@@ -85,7 +85,8 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
         // matching a Region (defined above) are first seen.
         Log.i(TAG, "did enter region: " + region);
 
-        String username = "ceefour";
+//        String username = "ceefour";
+        String username = "habibakbaraziiz";
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this);
         String url ="http://labinv.mybluemix.net/pushdevice?username=" + username
