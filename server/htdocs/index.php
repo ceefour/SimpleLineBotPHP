@@ -97,8 +97,8 @@ $app->post('/', function ($request, $response)
 					$options [0]=new \LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder("keyboard","pinjam keyboard" );
 					$options [1]=new \LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder("mouse","pinjam mouse" );
 					$options [2]=new \LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder("microphone","pinjam microphone" );
-					$options [2]=new \LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder("NAO","pinjam NAO" );
-					$buttontemplate [0] = new \LINE\LINEBot\MessageBuilder\TemplateBuilder\ButtonTemplateBuilder(
+					$options [3]=new \LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder("NAO","pinjam NAO" );
+					$buttontemplate = new \LINE\LINEBot\MessageBuilder\TemplateBuilder\ButtonTemplateBuilder(
 						"Untuk meminjam barang ",
 						"Untuk mengembalikan barang",
 						"https://labsistemkontrol.files.wordpress.com/2012/03/dsc00786.jpg",
