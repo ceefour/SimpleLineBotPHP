@@ -27,11 +27,9 @@ $beacons = [
 		$options [1]=new \LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder("mouse","pinjam mouse" );
 		$options [2]=new \LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder("microphone","pinjam microphone" );
 		$options [2]=new \LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder("NAO","pinjam NAO" );
-		$buttontemplate [0] = new \LINE\LINEBot\MessageBuilder\TemplateBuilder\ButtonTemplateBuilder("Untuk meminjam barang ","Untuk mengembalikan barang","https://labsistemkontrol.files.wordpress.com/2012/03/dsc00786.jpg","keyboard");
-		$buttontemplate [1] = new \LINE\LINEBot\MessageBuilder\TemplateBuilder\ButtonTemplateBuilder("Untuk meminjam barang ","Untuk mengembalikan barang","https://labsistemkontrol.files.wordpress.com/2012/03/dsc00786.jpg","mouse");
-		$buttontemplate [2] = new \LINE\LINEBot\MessageBuilder\TemplateBuilder\ButtonTemplateBuilder("Untuk meminjam barang ","Untuk mengembalikan barang","https://labsistemkontrol.files.wordpress.com/2012/03/dsc00786.jpg","microphone");
-		$buttontemplate [3] = new \LINE\LINEBot\MessageBuilder\TemplateBuilder\ButtonTemplateBuilder("Untuk meminjam barang ","Untuk mengembalikan barang","https://labsistemkontrol.files.wordpress.com/2012/03/dsc00786.jpg","NAO");
-		
+		$buttontemplate [0] = new \LINE\LINEBot\MessageBuilder\TemplateBuilder\ButtonTemplateBuilder("Untuk meminjam barang ","Untuk mengembalikan barang","https://labsistemkontrol.files.wordpress.com/2012/03/dsc00786.jpg",$options);
+		$messageBuilder = new \LINE\LINEBot\MessageBuilder\TemplateMessageBuilder("Hey YOU!!", $buttontemplate);
+		$result = $bot->pushMessage($profile['habibakbaraziiz'],$messageBuilder);
 		//edit aryo
 
 		
