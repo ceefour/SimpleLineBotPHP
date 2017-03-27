@@ -20,6 +20,21 @@ $beacons = [
 		'name' => 'Lab. Robotika',
 		'description' => 'Laboratorium Robotika memberikan fasilitas bagi mahasiswa untuk melakukan penelitian di bidang robotika, dengan alat-alat terbaru.',
 		'items' => ['NAO', 'microphone', 'sound card', 'keyboard', 'mouse', 'flash drive'],
+		
+		// edit aryo
+					
+		$options [0]=new \LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder("keyboard","pinjam keyboard" );
+		$options [1]=new \LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder("mouse","pinjam mouse" );
+		$options [2]=new \LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder("microphone","pinjam microphone" );
+		$options [2]=new \LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder("NAO","pinjam NAO" );
+		$buttontemplate [0] = new \LINE\LINEBot\MessageBuilder\TemplateBuilder\ButtonTemplateBuilder("Untuk meminjam barang ","Untuk mengembalikan barang","https://labsistemkontrol.files.wordpress.com/2012/03/dsc00786.jpg","keyboard");
+		$buttontemplate [1] = new \LINE\LINEBot\MessageBuilder\TemplateBuilder\ButtonTemplateBuilder("Untuk meminjam barang ","Untuk mengembalikan barang","https://labsistemkontrol.files.wordpress.com/2012/03/dsc00786.jpg","mouse");
+		$buttontemplate [2] = new \LINE\LINEBot\MessageBuilder\TemplateBuilder\ButtonTemplateBuilder("Untuk meminjam barang ","Untuk mengembalikan barang","https://labsistemkontrol.files.wordpress.com/2012/03/dsc00786.jpg","microphone");
+		$buttontemplate [3] = new \LINE\LINEBot\MessageBuilder\TemplateBuilder\ButtonTemplateBuilder("Untuk meminjam barang ","Untuk mengembalikan barang","https://labsistemkontrol.files.wordpress.com/2012/03/dsc00786.jpg","NAO");
+		
+		//edit aryo
+
+		
 	]
 ];
 $allItems = ['notebook', 'power supply', 'monitor', 'baterai',
@@ -88,6 +103,8 @@ $app->post('/', function ($request, $response)
 						"Saat memasuki area lab, Anda akan otomatis mendapatkan informasi tentang lab. tersebut.\n" .
 						"Untuk meminjam barang, ketik: pinjam <barang>\n" .
 						"Untuk mengembalikan barang, ketik: kembali <barang>\n";
+					
+					
 					$result = $bot->replyText($event['replyToken'], $replyMessage);
 					return $result->getHTTPStatus() . ' ' . $result->getRawBody();
 				} else if (preg_match('/pinjam (.+)/', $text, $matches)) {
